@@ -1,0 +1,40 @@
+name: Ensure Terraform code is properly formatted and valid
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - '**/*.tf'
+
+jobs:
+  check_terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository code
+        uses: actions/checkout@v4
+
+      - name: Set up the Terraform CLI
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Cache Terraform providers
+        uses: actions/cache@v3
+        with:
+          path: |
+            .terraform
+          key: terraform-${{ runner.os }}-${{ hashFiles('**/*.tf', '**/.terraform.lock.hcl') }}
+          restore-keys: |
+            terraform-${{ runner.os }}-
+
+      - name: Initialize the Terraform working directory
+        run: terraform init -backend=false -input=false
+
+      - name: Verify that all Terraform files are properly formatted
+        run: terraform fmt -recursive -check
+
+      - name: Validate the Terraform configuration files
+        run: terraform validate
+
