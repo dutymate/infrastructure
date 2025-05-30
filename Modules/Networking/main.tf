@@ -189,21 +189,3 @@ resource "aws_vpc_endpoint" "vpce_ecr" {
     Name = "dutymate-vpce-ecr-${each.key}"
   }
 }
-
-resource "aws_vpc_endpoint" "vpce_ssm" {
-  for_each = toset([
-    "ssm",
-    "ssmmessages",
-    "ec2messages"
-  ])
-  vpc_id              = aws_vpc.vpc.id
-  vpc_endpoint_type   = "Interface"
-  service_name        = "com.amazonaws.${var.aws_region}.${each.key}"
-  subnet_ids          = aws_subnet.database_subnets[*].id
-  security_group_ids  = [var.sg_vpce_ssm_id]
-  private_dns_enabled = true
-
-  tags = {
-    Name = "dutymate-vpce-${each.key}"
-  }
-}

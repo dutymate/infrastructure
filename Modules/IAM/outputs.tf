@@ -18,10 +18,6 @@ output "eventbridge_api_destinations_role_arn" {
   value = aws_iam_role.eventbridge_api_destinations_role.arn
 }
 
-output "ssm_instance_profile_name" {
-  value = aws_iam_instance_profile.ssm_instance_profile.name
-}
-
 output "webserver_ecs_task_role_arn" {
   value = aws_iam_role.webserver_ecs_task_role.arn
 }

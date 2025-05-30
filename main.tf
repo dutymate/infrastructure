@@ -90,7 +90,6 @@ module "networking" {
   private_subnet_cidr_block  = var.private_subnet_cidr_block
   public_subnet_cidr_block   = var.public_subnet_cidr_block
   sg_vpce_ecr_id             = module.security_group.sg_vpce_ecr_id
-  sg_vpce_ssm_id             = module.security_group.sg_vpce_ssm_id
   vpc_cidr                   = var.vpc_cidr
 }
 
@@ -126,11 +125,4 @@ module "security_group" {
   private_subnet_cidr_block  = var.private_subnet_cidr_block
   public_subnet_cidr_block   = var.public_subnet_cidr_block
   vpc_id                     = module.networking.vpc_id
-}
-
-module "ssm" {
-  source                    = "./Modules/SSM"
-  database_subnets          = module.networking.database_subnets
-  sg_ssm_ec2_id             = module.security_group.sg_ssm_ec2_id
-  ssm_instance_profile_name = module.iam.ssm_instance_profile_name
 }
