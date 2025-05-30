@@ -1,3 +1,7 @@
+variable "alb_health_check_path" {
+  type = string
+}
+
 variable "api_secret_key" {
   type = string
 }
@@ -14,19 +18,7 @@ variable "aws_region" {
   type = string
 }
 
-variable "database_subnet_cidr_block" {
-  type = list(string)
-}
-
 variable "domain_name" {
-  type = string
-}
-
-variable "external_alb_health_check_path" {
-  type = string
-}
-
-variable "internal_alb_health_check_path" {
   type = string
 }
 
@@ -48,10 +40,6 @@ variable "mysql_password" {
 
 variable "mysql_username" {
   type = string
-}
-
-variable "private_subnet_cidr_block" {
-  type = list(string)
 }
 
 variable "public_subnet_cidr_block" {
