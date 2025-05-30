@@ -10,7 +10,6 @@ resource "aws_docdb_subnet_group" "docdbsg" {
 resource "aws_docdb_cluster" "docdb" {
   engine                          = "docdb"
   cluster_identifier              = "dutymate-docdb-cluster"
-  snapshot_identifier             = "docdb-snapshot"
   master_username                 = var.mongodb_username
   master_password                 = var.mongodb_password
   db_subnet_group_name            = aws_docdb_subnet_group.docdbsg.id
