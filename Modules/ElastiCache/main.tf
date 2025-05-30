@@ -1,6 +1,6 @@
 resource "aws_elasticache_subnet_group" "elasticachesg" {
   name       = "dutymate-elasticachesg"
-  subnet_ids = var.database_subnets
+  subnet_ids = var.public_subnets
 
   tags = {
     Name = "dutymate-elasticachesg"
