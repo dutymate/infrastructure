@@ -1,6 +1,6 @@
 resource "aws_db_subnet_group" "dbsg" {
   name       = "dutymate-dbsg"
-  subnet_ids = var.database_subnets
+  subnet_ids = var.public_subnets
 
   tags = {
     Name = "dutymate-dbsg"
@@ -15,6 +15,7 @@ resource "aws_db_instance" "db" {
   username                = var.mysql_username
   password                = var.mysql_password
   identifier              = "dutymate-db"
+  snapshot_identifier     = "rds-instance-snapshot"
   multi_az                = false
   db_subnet_group_name    = aws_db_subnet_group.dbsg.name
   vpc_security_group_ids  = [var.sg_mysql_id]

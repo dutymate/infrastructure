@@ -55,21 +55,16 @@ resource "aws_s3_bucket_policy" "asset_bucket_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "AllowPrivateWriteAccess"
+        Sid       = "AllowWriteAccess"
         Effect    = "Allow"
         Principal = "*"
         Action = [
           "s3:PutObject"
         ]
         Resource = "${aws_s3_bucket.asset_bucket.arn}/*"
-        Condition = {
-          StringEquals = {
-            "aws:SourceVpce" = "${var.vpce_s3_id}"
-          }
-        }
       },
       {
-        Sid       = "AllowPublicReadAccess"
+        Sid       = "AllowReadAccess"
         Effect    = "Allow"
         Principal = "*"
         Action = [
