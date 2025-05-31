@@ -55,3 +55,17 @@ resource "aws_route_table_association" "public_route_table_assoc" {
   subnet_id      = aws_subnet.public_subnets[count.index].id
   route_table_id = aws_route_table.public_route_table.id
 }
+
+resource "aws_vpc_dhcp_options" "dhcp_options" {
+  domain_name         = "ec2.internal"
+  domain_name_servers = ["AmazonProvidedDNS"]
+
+  tags = {
+    Name = "dutymate-dhcp-options"
+  }
+}
+
+resource "aws_vpc_dhcp_options_association" "dhcp_options_assoc" {
+  vpc_id          = aws_vpc.vpc.id
+  dhcp_options_id = aws_vpc_dhcp_options.dhcp_options.id
+}
