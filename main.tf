@@ -52,6 +52,12 @@ module "ecs" {
   sg_ecs_id                   = module.security_group.sg_ecs_id
 }
 
+module "ec2" {
+  source                   = "./Modules/EC2"
+  public_subnets           = module.networking.public_subnets
+  sg_db_access_instance_id = module.security_group.sg_db_access_instance_id
+}
+
 module "elasticache" {
   source         = "./Modules/ElastiCache"
   public_subnets = module.networking.public_subnets
