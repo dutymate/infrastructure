@@ -59,4 +59,9 @@ resource "aws_cloudwatch_event_target" "api_targets" {
   rule     = aws_cloudwatch_event_rule.api_rules[each.key].name
   arn      = aws_cloudwatch_event_api_destination.api_destinations[each.key].arn
   role_arn = var.eventbridge_api_destinations_role_arn
+
+  retry_policy {
+    maximum_event_age_in_seconds = 60
+    maximum_retry_attempts       = 1
+  }
 }
