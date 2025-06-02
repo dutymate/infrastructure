@@ -24,6 +24,6 @@ resource "aws_instance" "db_access_instance" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "dummy-db-access-instance"
+    Name = "dutymate-db-access-instance"
   }
 }
