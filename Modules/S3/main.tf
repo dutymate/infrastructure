@@ -55,11 +55,12 @@ resource "aws_s3_bucket_policy" "asset_bucket_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "AllowWriteAccess"
+        Sid       = "AllowPutAndDeleteAccess"
         Effect    = "Allow"
         Principal = "*"
         Action = [
-          "s3:PutObject"
+          "s3:PutObject",
+          "s3:DeleteObject",
         ]
         Resource = "${aws_s3_bucket.asset_bucket.arn}/*"
       },
