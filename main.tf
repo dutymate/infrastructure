@@ -1,11 +1,11 @@
 module "acm" {
-  source          = "./Modules/ACM"
+  source          = "./Modules/AWS/ACM"
   domain_name     = var.domain_name
   route53_zone_id = var.route53_zone_id
 }
 
 module "alb" {
-  source                = "./Modules/ALB"
+  source                = "./Modules/AWS/ALB"
   alb_certificate_arn   = module.acm.alb_certificate_arn
   alb_health_check_path = var.alb_health_check_path
   public_subnets        = module.networking.public_subnets
@@ -14,7 +14,7 @@ module "alb" {
 }
 
 module "cloudfront" {
-  source                               = "./Modules/CloudFront"
+  source                               = "./Modules/AWS/CloudFront"
   aws_region                           = var.aws_region
   cloudfront_certificate_arn           = module.acm.cloudfront_certificate_arn
   domain_name                          = var.domain_name
@@ -22,11 +22,11 @@ module "cloudfront" {
 }
 
 module "cloudwatch" {
-  source = "./Modules/CloudWatch"
+  source = "./Modules/AWS/CloudWatch"
 }
 
 module "documentdb" {
-  source           = "./Modules/DocumentDB"
+  source           = "./Modules/AWS/DocumentDB"
   mongodb_password = var.mongodb_password
   mongodb_username = var.mongodb_username
   public_subnets   = module.networking.public_subnets
@@ -34,11 +34,11 @@ module "documentdb" {
 }
 
 module "ecr" {
-  source = "./Modules/ECR"
+  source = "./Modules/AWS/ECR"
 }
 
 module "ecs" {
-  source                      = "./Modules/ECS"
+  source                      = "./Modules/AWS/ECS"
   alb_target_group_arn        = module.alb.alb_target_group_arn
   asset_bucket_arn            = module.s3.asset_bucket_arn
   aws_region                  = var.aws_region
@@ -53,34 +53,34 @@ module "ecs" {
 }
 
 module "ec2" {
-  source                   = "./Modules/EC2"
+  source                   = "./Modules/AWS/EC2"
   public_subnets           = module.networking.public_subnets
   sg_db_access_instance_id = module.security_group.sg_db_access_instance_id
 }
 
 module "elasticache" {
-  source         = "./Modules/ElastiCache"
+  source         = "./Modules/AWS/ElastiCache"
   public_subnets = module.networking.public_subnets
   sg_valkey_id   = module.security_group.sg_valkey_id
 }
 
 module "eventbridge" {
-  source                                = "./Modules/EventBridge"
+  source                                = "./Modules/AWS/EventBridge"
   api_secret_key                        = var.api_secret_key
   domain_name                           = var.domain_name
   eventbridge_api_destinations_role_arn = module.iam.eventbridge_api_destinations_role_arn
 }
 
 module "iam" {
-  source = "./Modules/IAM"
+  source = "./Modules/AWS/IAM"
 }
 
 module "kms" {
-  source = "./Modules/KMS"
+  source = "./Modules/AWS/KMS"
 }
 
 module "networking" {
-  source                   = "./Modules/Networking"
+  source                   = "./Modules/AWS/Networking"
   aws_region               = var.aws_region
   availability_zones       = var.availability_zones
   public_subnet_cidr_block = var.public_subnet_cidr_block
@@ -88,7 +88,7 @@ module "networking" {
 }
 
 module "rds" {
-  source          = "./Modules/RDS"
+  source          = "./Modules/AWS/RDS"
   kms_rds_key_arn = module.kms.kms_rds_key_arn
   mysql_password  = var.mysql_password
   mysql_username  = var.mysql_username
@@ -97,7 +97,7 @@ module "rds" {
 }
 
 module "route53" {
-  source                                 = "./Modules/Route53"
+  source                                 = "./Modules/AWS/Route53"
   alb_dns_name                           = module.alb.alb_dns_name
   alb_zone_id                            = module.alb.alb_zone_id
   cloudfront_distribution_domain_name    = module.cloudfront.cloudfront_distribution_domain_name
@@ -108,12 +108,12 @@ module "route53" {
 }
 
 module "s3" {
-  source                      = "./Modules/S3"
+  source                      = "./Modules/AWS/S3"
   cloudfront_distribution_arn = module.cloudfront.cloudfront_distribution_arn
 }
 
 module "security_group" {
-  source                   = "./Modules/SecurityGroup"
+  source                   = "./Modules/AWS/SecurityGroup"
   public_subnet_cidr_block = var.public_subnet_cidr_block
   vpc_id                   = module.networking.vpc_id
 }
