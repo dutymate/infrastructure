@@ -30,6 +30,12 @@ locals {
       http_method = "PUT",
       endpoint    = "https://api.${var.domain_name}/api/holiday/update"
     },
+    auto_gen_cnt = {
+      name        = "auto-gen-cnt",
+      schedule    = "cron(0 15 L * ? *)",
+      http_method = "PUT",
+      endpoint    = "https://api.${var.domain_name}/api/member/auto-gen-cnt"
+    },
     login_log = {
       name        = "login-log",
       schedule    = "cron(5 15 * * ? *)",
