@@ -18,7 +18,7 @@ resource "aws_alb_target_group" "alb_target_group" {
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
   target_type          = "instance"
-  deregistration_delay = 5
+  deregistration_delay = 30
 
   health_check {
     path                = var.alb_health_check_path
