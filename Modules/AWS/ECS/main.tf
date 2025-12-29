@@ -60,6 +60,16 @@ resource "aws_ecs_service" "ecs_service" {
   deployment_minimum_healthy_percent = 50
   deployment_maximum_percent         = 100
 
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.capacity_provider.name
+    base              = 2
+    weight            = 1
+  }
+
+  placement_constraints {
+    type = "distinctInstance"
+  }
+
   load_balancer {
     target_group_arn = var.alb_target_group_arn
     container_port   = 8080
