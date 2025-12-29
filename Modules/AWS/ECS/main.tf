@@ -19,11 +19,12 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
 
   container_definitions = jsonencode([
     {
-      name      = "dutymate-container",
-      image     = "${var.ecr_repository_url}:latest",
-      memory    = 768,
-      cpu       = 512,
-      essential = true,
+      name              = "dutymate-container",
+      image             = "${var.ecr_repository_url}:latest",
+      cpu               = 512,
+      memoryReservation = 512,
+      memory            = 768,
+      essential         = true,
       portMappings = [{
         containerPort = 8080,
         hostPort      = 8080,
