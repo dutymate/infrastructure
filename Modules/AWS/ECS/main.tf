@@ -22,7 +22,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
       name              = "dutymate-container",
       image             = "${var.ecr_repository_url}:latest",
       cpu               = 512,
-      memoryReservation = 512,
+      memoryReservation = 640,
       memory            = 768,
       essential         = true,
       portMappings = [{
