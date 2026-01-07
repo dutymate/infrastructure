@@ -172,4 +172,8 @@ resource "aws_security_group" "sg_db_access_instance" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "dutymate-sg-db-access-instance"
+  }
 }

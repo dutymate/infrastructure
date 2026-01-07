@@ -166,7 +166,7 @@ resource "aws_ecs_capacity_provider" "capacity_provider" {
   }
 }
 
-resource "aws_ecs_cluster_capacity_providers" "capacity_provider_association" {
+resource "aws_ecs_cluster_capacity_providers" "capacity_provider_assoc" {
   cluster_name       = aws_ecs_cluster.ecs_cluster.name
   capacity_providers = [aws_ecs_capacity_provider.capacity_provider.name]
 }
